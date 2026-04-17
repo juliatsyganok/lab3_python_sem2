@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..',
 
 from class_task import Task
 from task_queue import TaskQueue, TaskIterator
-from filters import filter_by_status, filter_by_priority, filter_ready, filter_by_status_and_priority, take
+from filters import filt_status, filt_priority, filt_ready, filt_all, take
 
 
 def make_queue():
@@ -70,12 +70,12 @@ def test_list_and_len():
     assert len(list(q)) == len(q) == 5
 
 def test_new():
-    result = list(filter_by_status(make_queue(), "new"))
+    result = list(filt_status(make_queue(), "new"))
     assert len(result) == 3
     assert all(t.status == "new" for t in result)
 
 def test_filter():
-    assert isinstance(filter_by_status(make_queue(), "new"), types.GeneratorType)
+    assert isinstance(filt_status(make_queue(), "new"), types.GeneratorType)
 
 def test_take_n():
     assert len(list(take(make_queue(), 2))) == 2

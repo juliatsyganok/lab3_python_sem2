@@ -3,27 +3,27 @@ from task_queue import TaskQueue
 from filters import filter_by_status, filter_by_priority, filter_ready, filter_by_status_and_priority, take
 
 
-def make_sample_queue() -> TaskQueue:
-    """Создаём тестовую очередь с разными задачами"""
+def f1() -> TaskQueue:
+    """тестовая очередь"""
     queue = TaskQueue()
     queue.add_many([
-        Task("t-001", "Написать тесты",          priority="high",   status="new"),
-        Task("t-002", "Проверить логи",           priority="low",    status="new"),
-        Task("t-003", "Исправить баг #42",        priority="high",   status="in_progress"),
-        Task("t-004", "Обновить документацию",    priority="medium", status="done"),
-        Task("t-005", "Провести код-ревью",       priority="medium", status="new"),
-        Task("t-006", "Развернуть на стейдже",    priority="high",   status="in_progress"),
-        Task("t-007", "Закрыть старые задачи",    priority="low",    status="done"),
+        Task("1", "тесты", priority="high", status="new"),
+        Task("2", "логи", priority="low", status="new"),
+        Task("3", "баг", priority="high", status="in_progress"),
+        Task("4", "док", priority="medium", status="done"),
+        Task("5", "код", priority="medium", status="new"),
+        Task("6", "ci cd", priority="high", status="in_progress"),
+        Task("7", "задачи", priority="low", status="done"),
     ])
     return queue
 
 
-def demo_basic_iteration(queue: TaskQueue) -> None:
+def f2(queue: TaskQueue) -> None:
     for task in queue:
-        print(f"  [{task.priority:6}] {task.id} — {task.description} ({task.status})")
+        print(f"{task.priority:6} {task.id} {task.description} {task.status}")
 
 
-def demo_repeat_iteration(queue: TaskQueue) -> None:
+def f3(queue: TaskQueue) -> None:
     print("Повторный обход")
     first  = sum(1 for _ in queue)
     second = sum(1 for _ in queue)
@@ -32,7 +32,7 @@ def demo_repeat_iteration(queue: TaskQueue) -> None:
     assert first == second, "не совпадают"
 
 
-def demo_builtins(queue: TaskQueue) -> None:
+def f4(queue: TaskQueue) -> None:
     print("Совместимость со встроенными функциями")
     as_list = list(queue)
     print(f"{len(as_list)} элементов")
@@ -58,13 +58,13 @@ def demo_filters(queue: TaskQueue) -> None:
         print(f"    {task.id}: {task.description}")
 
 
-def demo_take(queue: TaskQueue) -> None:
+def f5(queue: TaskQueue) -> None:
     print("Генератор take")
     first_3 = list(take(queue, 3))
     print(f"  take(queue, 3) → {[t.id for t in first_3]}")
 
 
-def demo_chain(queue: TaskQueue) -> None:
+def f6(queue: TaskQueue) -> None:
     print("Цепочка фильтров")
     result = list(take(filter_by_priority(filter_by_status(queue, "new"), "high"), 2))
     for task in result:
@@ -72,12 +72,10 @@ def demo_chain(queue: TaskQueue) -> None:
 
 
 if __name__ == "__main__":
-    queue = make_sample_queue()
-    print(f"\nОчередь создана: {queue}\n")
-
-    demo_basic_iteration(queue)
-    demo_repeat_iteration(queue)
-    demo_builtins(queue)
-    demo_filters(queue)
-    demo_take(queue)
-    demo_chain(queue)
+    queue = f1()
+    f1(queue)
+    f2(queue)
+    f3(queue)
+    f4(queue)
+    f5(queue)
+    f6(queue)

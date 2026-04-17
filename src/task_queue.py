@@ -2,7 +2,7 @@ from class_task import Task
 from typing import List
 
 class TaskIterator:
-    """Итератор для TaskQueue"""
+    """ИтераторTaskQueue"""
     def __init__(self, tasks: List[Task]) -> None:
         self._tasks = tasks
         self._index = 0
@@ -23,14 +23,14 @@ class TaskQueue:
         self._tasks: List[Task] = []
 
     def __iter__(self) -> TaskIterator:
-        """Возвращает новый итератор"""
+        """новый итератор"""
         return TaskIterator(list(self._tasks))
 
     def __len__(self) -> int:
         return len(self._tasks)
 
     def add(self, task: Task) -> None:
-        """Добавить задачу в конец очереди"""
+        """Добавить задачу в конец"""
         if not isinstance(task, Task):
             raise TypeError(f"не задача {type(task).__name__}")
         self._tasks.append(task)

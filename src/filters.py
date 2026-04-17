@@ -1,7 +1,7 @@
 from typing import Iterator
 from class_task import Task
 
-def filter_by_status(tasks, status: str) -> Iterator[Task]:
+def filt_status(tasks, status: str) -> Iterator[Task]:
     """фильтр по статусу задачи"""
     allowed = {"new", "in_progress", "done"}
     if status not in allowed:
@@ -10,7 +10,7 @@ def filter_by_status(tasks, status: str) -> Iterator[Task]:
         if task.status == status:
             yield task
 
-def filter_by_priority(tasks, priority: str) -> Iterator[Task]:
+def filt_priority(tasks, priority: str) -> Iterator[Task]:
     """фильтр по приоритету задачи"""
     allowed = {"low", "medium", "high"}
     if priority not in allowed:
@@ -20,15 +20,15 @@ def filter_by_priority(tasks, priority: str) -> Iterator[Task]:
             yield task
 
 
-def filter_ready(tasks) -> Iterator[Task]:
+def filt_ready(tasks) -> Iterator[Task]:
     """только задачи, готовые к работе"""
     for task in tasks:
         if task.is_ready:
             yield task
 
-def filter_by_status_and_priority(tasks, status: str, priority: str) -> Iterator[Task]:
+def filt_all(tasks, status: str, priority: str) -> Iterator[Task]:
     """общий фильтр"""
-    return filter_by_priority(filter_by_status(tasks, status), priority)
+    return filt_priority(filt_status(tasks, status), priority)
 
 
 def take(tasks, n: int) -> Iterator[Task]:
