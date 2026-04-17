@@ -16,7 +16,7 @@ def filt_priority(tasks, priority: str) -> Iterator[Task]:
     if priority not in allowed:
         raise ValueError(f"Неверный приоритет: {priority!r}")
     for task in tasks:
-        if task.priority == priority:
+        if task.prior == priority:
             yield task
 
 

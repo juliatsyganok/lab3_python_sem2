@@ -51,7 +51,7 @@ class choice:
 @dataclass
 class bounded:
     """строка длины не больше опр."""
-    max: int        
+    max_l: int        
     min_l: int = 1     
 
     def __set_name__(self, owner, name):
